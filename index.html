@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel = "stylesheet" href = "index.css">
+    <script src="https://kit.fontawesome.com/24ff01a9bd.js" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+</head>
+<body>
+    <div class = "title">
+        <h1>Welcome to your Study-Zone</h1>
+        <p>Click the + icon to add a website to your Study-Zone, any other website that is not in your study-zone will not be accessible while this extension is enabled.</p>
+    </div>
+
+    <div class = "add-website" onclick="addWebsitePage()">
+        <img src = "images/plus.svg" class = "plus-icon">
+    </div>
+
+    <div class = "website">
+        <!--Website's Icon-->
+        <div class = "item" id = "icon">
+            <img src = "/images/webIcon.svg" class = "item">
+        </div>
+
+        <!--Website's name-->
+        <div class = "item" id = "website-name">
+            <p>Youtube</p>
+        </div>
+
+        <div class = "iconContanier">
+            <!--Edit icon button-->
+            <img src = "/images/edit.svg" class = "item" id = "icon" onclick = "editWebsite()">
+
+            <!--Delete icon button-->
+            <img src = "/images/trash.svg" class = "item" id = "icon" onclick = "deleteWebsite()">
+        </div>
+    </div>
+</body>
+</html>

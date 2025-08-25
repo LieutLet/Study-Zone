@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel = "stylesheet" href = "addEdit.css">
+    <script src="https://kit.fontawesome.com/24ff01a9bd.js" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+</head>
+<body>
+    <form>
+        <!--Enter the Website Name-->
+        <input type = "text" id = "webName" value = "Youtube">
+
+        <!--Enter the URL-->
+        <input type = "text" id = "URL" value = "https://www.youtube.com/">
+
+        <!--So that both buttons can be next to each other-->
+        <div class = "addCancel">
+            <!-- Add button-->
+            <button type = "button" class = "save" onclick = "addWebsite()">
+                SAVE
+            </button>
+
+            <button  type = "button" class = "cancel" onclick = "homePage()">
+                CANCEL
+            </button>
+        </div>
+    </form>
+</body>
+</html>
