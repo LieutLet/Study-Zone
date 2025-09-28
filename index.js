@@ -1,3 +1,7 @@
+//array to hold the websites that need to be blocked
+let websites = [];
+
+
 function addWebsitePage(){
     window.location.href = "addPage.html";
 }
@@ -15,6 +19,17 @@ function homePage(){
 }
 
 function addWebsite(){
+    let siteName = document.getElementById("webName").value;
+    let url = document.getElementById("URL").value;
+
+    //Check for if the website is already in the list
+    for (let i = 0; i < websites.length; i++) {
+        if (websites[i].getName() === siteName) {
+            window.alert(siteName + " is already in the list of blocked websites.");
+            return;
+        }
+    let newWebsite = new websiteToBlock(siteName, url);
+    websites.push(newWebsite);
 
 }
 
@@ -39,4 +54,13 @@ class websiteToBlock{
             window.alert( newUrl + " is already the address for this website.");
         }
     }
+
+    getName(){
+        return this.siteName;
+    }
+
+    getUrl(){
+        return this.url;
+    }
 }
+
