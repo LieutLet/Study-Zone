@@ -64,6 +64,8 @@ function addWebsite(){
     //Add to new website to index.html
     let newDiv = document.createElement("div");
     newDiv.className = "website";
+
+    newDiv.innerHTML = 
 }
 
 class websiteToBlock{
