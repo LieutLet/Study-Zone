@@ -62,16 +62,44 @@ function addWebsite(){
     window.alert(siteName + " has been added to the list of blocked websites.");
 
     //Add to new website to index.html
-    let newDiv = document.createElement("div");
-    newDiv.className = "website";
-
-    newDiv.innerHTML = 
+    newWebsite.newDiv();
 }
 
 class websiteToBlock{
     constructor(siteName, url){
         this.siteName = siteName;
         this.url = url;
+    }
+
+    //creates an div element for the website, with the website name and url, and returns it
+    newDiv(){
+        //edit icon
+        let lvl0Img1 = document.createElement("img");
+        lvl0Img1.src = "/images/edit.svg";
+        lvl0Img1.className = "item";
+        lvl0Img1.id = "icon";
+        lvl0Img1.onclick = editWebsite();
+
+        //trash icon
+        let lvl0Img2 = document.createElement("img");
+        lvl0Img2.src = "/images/trash.svg";
+        lvl0Img2.className = "item";
+        lvl0Img2.id = "icon";
+        lvl0Img2.onclick = deleteWebsite();
+
+        //website name
+        let lvl0div1 = document.createElement("div");
+        lvl0div1.className = "item";
+        lvl0div1.id = "website-name";
+        lvl0div1.innerHTML = this.siteName;
+
+        //website icon
+        let lvl1div1 = document.createElement("div");
+        lvl1div1.className = "item";
+        let lvl1div2 = document.createElement("div");
+        let lvl1div3 = document.createElement("div");
+        let lvl2 = document.createElement("div");
+        return newDiv;
     }
 
     editName(newName){
