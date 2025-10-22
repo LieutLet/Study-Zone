@@ -73,12 +73,28 @@ class websiteToBlock{
 
     //creates an div element for the website, with the website name and url, and returns it
     newDiv(){
-        //edit icon
-        let lvl0Img1 = document.createElement("img");
-        lvl0Img1.src = "/images/edit.svg";
-        lvl0Img1.className = "item";
-        lvl0Img1.id = "icon";
-        lvl0Img1.onclick = editWebsite();
+      
+        //Web container div
+        let lvl2div1 = document.createElement("div");
+        lvl2div1.className = "website";
+        document.body.appendChild(lvl2div1);
+
+        //website icon
+        let lvl1div2 = document.createElement("div");
+        lvl1div2.className = "item";
+        lvl2div1.appendChild(lvl1div2);
+
+        //website name
+        let lvl1div1 = document.createElement("div");
+        lvl1div1.className = "item";
+        lvl1div1.id = "website-name";
+        lvl1div1.innerHTML = this.siteName;
+        lvl2div1.appendChild(lvl1div1);
+
+        //icon container
+        let lvl1div3 = document.createElement("div");
+        lvl1div3.className = "iconContainer";
+        lvl2div1.appendChild(lvl1div3);
 
         //trash icon
         let lvl0Img2 = document.createElement("img");
@@ -86,20 +102,17 @@ class websiteToBlock{
         lvl0Img2.className = "item";
         lvl0Img2.id = "icon";
         lvl0Img2.onclick = deleteWebsite();
+        lvl1div3.appendChild(lvl0Img2);
 
-        //website name
-        let lvl0div1 = document.createElement("div");
-        lvl0div1.className = "item";
-        lvl0div1.id = "website-name";
-        lvl0div1.innerHTML = this.siteName;
+        //edit icon
+        let lvl0Img1 = document.createElement("img");
+        lvl0Img1.src = "/images/edit.svg";
+        lvl0Img1.className = "item";
+        lvl0Img1.id = "icon";
+        lvl0Img1.onclick = editWebsite();
+        lvl1div3.appendChild(lvl0Img1);
 
-        //website icon
-        let lvl1div1 = document.createElement("div");
-        lvl1div1.className = "item";
-        let lvl1div2 = document.createElement("div");
-        let lvl1div3 = document.createElement("div");
-        let lvl2 = document.createElement("div");
-        return newDiv;
+        return lvl2div1;
     }
 
     editName(newName){
