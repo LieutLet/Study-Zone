@@ -68,36 +68,28 @@ class websiteToBlock{
 
     //creates an div element for the website, with the website name and url, and returns it
     newDiv(){
-        //Website container div
-        let lvl2div = document.createElement("div");
-        lvl2div.className = "website";
+      
+        //Web container div
+        let lvl2div1 = document.createElement("div");
+        lvl2div1.className = "website";
+        document.body.appendChild(lvl2div1);
 
         //website icon
-        let lvl1div1 = document.createElement("div");
-        lvl1div1.className = "item";
-        lvl1div1.id = "icon";
-
-        let lvl1img1 = document.createElement("img");
-        //favicon of the webstite, to be implemented later
-        lvl1div1.appendChild(lvl1img1);
-
-        //append website icon to website container
-        lvl2div.appendChild(lvl1div1);
+        let lvl1div2 = document.createElement("div");
+        lvl1div2.className = "item";
+        lvl2div1.appendChild(lvl1div2);
 
         //website name
-        let lvl0div1 = document.createElement("div");
-        lvl0div1.className = "item";
-        lvl0div1.id = "website-name";
-        lvl0div1.innerHTML = this.siteName;
-        lvl2div.appendChild(lvl0div1);
+        let lvl1div1 = document.createElement("div");
+        lvl1div1.className = "item";
+        lvl1div1.id = "website-name";
+        lvl1div1.innerHTML = this.siteName;
+        lvl2div1.appendChild(lvl1div1);
 
-        //edit icon
-        let lvl0Img1 = document.createElement("img");
-        lvl0Img1.src = "/images/edit.svg";
-        lvl0Img1.className = "item";
-        lvl0Img1.id = "icon";
-        lvl0Img1.onclick = editWebsite();
-        lvl2div.appendChild(lvl0Img1);
+        //icon container
+        let lvl1div3 = document.createElement("div");
+        lvl1div3.className = "iconContainer";
+        lvl2div1.appendChild(lvl1div3);
 
         //trash icon
         let lvl0Img2 = document.createElement("img");
@@ -105,12 +97,17 @@ class websiteToBlock{
         lvl0Img2.className = "item";
         lvl0Img2.id = "icon";
         lvl0Img2.onclick = deleteWebsite();
-        lvl2div.appendChild(lvl0Img2);
+        lvl1div3.appendChild(lvl0Img2);
 
-        //append the website container to the main container in index.html
-        document.body.appendChild(lvl2div);
+        //edit icon
+        let lvl0Img1 = document.createElement("img");
+        lvl0Img1.src = "/images/edit.svg";
+        lvl0Img1.className = "item";
+        lvl0Img1.id = "icon";
+        lvl0Img1.onclick = editWebsite();
+        lvl1div3.appendChild(lvl0Img1);
 
-        return newDiv;
+        return lvl2div1;
     }
 
     editName(newName){
