@@ -14,3 +14,13 @@ body{
     flex-direction: column;*/
 }
 
+.item{
+    font-size: 1em;
+}
+
+.itemContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
