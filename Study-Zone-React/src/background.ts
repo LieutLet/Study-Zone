@@ -11,9 +11,11 @@ const URL_PREFIX: string = "||";
 
 //webMap.set("Youtube", "https://www.youtube.com");
 
+// ********************************************************************************************** //
 //Purpose: reslove any issues with typescript when trying to catch and print an error message
 //Precondition: error
 //Postcondition: the error message or a string
+// ********************************************************************************************** //
 function getErrorMessage(error: unknown): string {
   if (error instanceof Error) {
     return error.message;
@@ -22,9 +24,11 @@ function getErrorMessage(error: unknown): string {
   return String(error);
 }
 
+// ********************************************************************************************** //
 //Purpose: add a new domain name to the list of blocked domains
 //Precondition: a valid url of type string
 //Postcondition: the list is updated
+// ********************************************************************************************** //
 const updateRules = async (newDomainName: string) => {
   //Ensure validity of url.
   try {
@@ -74,7 +78,9 @@ const updateRules = async (newDomainName: string) => {
       }
     });
     console.log("Successfully added rule");
-    console.log(await browser.declarativeNetRequest.getDynamicRules());
+    /*let currentRules: any =
+      await browser.declarativeNetRequest.getDynamicRules();
+    console.log(currentRules);*/
   } catch (err) {
     console.error("getDynamicRules" + err);
   }

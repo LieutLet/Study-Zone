@@ -11,7 +11,8 @@ import { handleClear } from "../background";
 // };
 
 const siteName: string = "hbo";
-const domainName: string = "https://play.hbomax.com";
+let domainName: string = "https://play.hbomax.com";
+domainName = "google.com/";
 
 console.log("App.tsx has been reached");
 const App = () => {
