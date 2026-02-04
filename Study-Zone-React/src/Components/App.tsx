@@ -1,6 +1,7 @@
 //import React from "react";
 import { handleAddWebsite } from "../background";
 import { handleClear } from "../background";
+import WebCard from "./WebCard";
 
 // const handleEditWebsite = () => {
 //   console.log("edit website clicked!");
@@ -18,6 +19,7 @@ console.log("App.tsx has been reached");
 const App = () => {
   return (
     <div>
+      <WebCard />
       <button
         type="button"
         onClick={() => {
