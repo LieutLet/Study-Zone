@@ -95,6 +95,7 @@ const clearRules = async () => {
   try {
     chrome.declarativeNetRequest.getDynamicRules(async (previousRules) => {
       const previousRuleIds = previousRules.map((rule) => rule.id);
+      console.log("previousRulesIds: " + previousRuleIds);
       try {
         await chrome.declarativeNetRequest.updateDynamicRules({
           removeRuleIds: previousRuleIds,
@@ -142,5 +143,24 @@ const handleClear = () => {
 
   clearRules();
 };
+
+// ********************************************************************************************** //
+// Purpose: to delete a site from the rules                                                       //
+// Precondition: rule exists                                                                      //
+// Postcondition: rule is removed                                                                 //
+// ********************************************************************************************** //
+// const handleDelete = (siteName: string) => {
+//   if (webMap.delete(siteName)) {
+//   } else {
+//     throw new Error(`${siteName} does not exist`);
+//   }
+// };
+
+// ********************************************************************************************** //
+// Purpose: all user to edit the rule                                                             //
+// Precondition: rules exist                                                                      //
+// Postcondition: rules is changed                                                                //
+// ********************************************************************************************** //
+// const handleEdit = () => {};
 
 export { handleAddWebsite, handleClear };
