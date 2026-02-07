@@ -116,6 +116,7 @@ const clearRules = async () => {
 // ********************************************************************************************** //
 const handleAddWebsite = async (siteName: string, domainName: string) => {
   console.log("add button has been clicked");
+  console.log(`Site Name: ${siteName} Domain Name ${domainName}`);
 
   if (siteName.length <= 0) {
     throw new Error(siteName + "name too short");

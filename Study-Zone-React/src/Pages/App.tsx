@@ -7,6 +7,18 @@ const siteName: string = "hbo";
 let domainName: string = "https://play.hbomax.com";
 domainName = "google.com/";
 
+// ********************************************************************************************** //
+// Purpose: get the information from the form                                                     //
+// Precondition: new information is entered into the form                                         //
+// Postcondition: the information is gotten                                                       //
+// ********************************************************************************************** //
+const getDomInfo = () => {
+  const inputName: any = document.getElementById("webName");
+  const inputSite: any = document.getElementById("domain");
+
+  handleAddWebsite(inputName.value, inputSite.value);
+};
+
 console.log("App.tsx has been reached");
 const App = () => {
   const [openPopup, setOpenPopup] = useState(false);
@@ -23,7 +35,6 @@ const App = () => {
         className="bg-blue-500 text-white-950 rounded-md p-2 mx-4 my-3"
         type="button"
         onClick={() => {
-          handleAddWebsite(siteName, domainName);
           setOpenPopup(true);
         }}
       >
@@ -37,13 +48,13 @@ const App = () => {
               type="text"
               className="bg-stone-200 rounded-sm text-slate-600 italic text-center p-1 my-2 shadow-sm"
               id="webName"
-              defaultValue="Google"
+              placeholder="Google"
             />
             <input
               type="text"
               className="bg-stone-200 rounded-sm text-slate-600 italic text-center p-1 my-2 shadow-sm"
               id="domain"
-              defaultValue="google.com/"
+              placeholder="google.com/"
             />
           </form>
           <button
@@ -51,7 +62,7 @@ const App = () => {
             className="bg-red-500 text-slate-950 rounded-md p-2 mx-20 my-3 shadow-md"
             onClick={() => {
               setOpenPopup(false);
-              handleAddWebsite();
+              getDomInfo();
             }}
           >
             SAVE
