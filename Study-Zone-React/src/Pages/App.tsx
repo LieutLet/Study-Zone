@@ -3,9 +3,9 @@ import { handleAddWebsite } from "../background";
 import { handleClear } from "../background";
 import WebCard from "../Components/WebCard";
 
-const siteName: string = "hbo";
-let domainName: string = "https://play.hbomax.com";
-domainName = "google.com/";
+//const siteName: string = "hbo";
+//let domainName: string = "https://play.hbomax.com";
+//domainName = "google.com/";
 
 // ********************************************************************************************** //
 // Purpose: get the information from the form                                                     //
