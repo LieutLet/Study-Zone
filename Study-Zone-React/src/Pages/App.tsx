@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { handleAddWebsite } from "../background";
 import { handleClear } from "../background";
+import { webMap } from "../Map";
 import WebCard from "../Components/WebCard";
-
-//const siteName: string = "hbo";
-//let domainName: string = "https://play.hbomax.com";
-//domainName = "google.com/";
 
 // ********************************************************************************************** //
 // Purpose: get the information from the form                                                     //
@@ -20,8 +17,22 @@ const getDomInfo = () => {
 };
 
 console.log("App.tsx has been reached");
+
 const App = () => {
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
+  let cardComponent: any[] = [];
+
+  webMap.forEach((value, key) => {
+    cardComponent.push(<WebCard key={key} cardName={key} cardDomain={value} />);
+  });
+
+  console.log(cardComponent);
+
   const [openPopup, setOpenPopup] = useState(false);
+
   return (
     <div className="flex flex-col text-center px-8 py-4">
       <h1 className="text-xl font-semibold">Welcome to your Study-Zone</h1>
@@ -30,7 +41,7 @@ const App = () => {
         that is not in your study-zone will not be accessible while this
         extension is enabled.
       </p>
-      <WebCard />
+      <ul>{cardComponent}</ul>
       <button
         className="bg-blue-500 text-white-950 rounded-md p-2 mx-4 my-3"
         type="button"
@@ -40,7 +51,6 @@ const App = () => {
       >
         +
       </button>
-
       {openPopup && (
         <div className="bg-stone-300 text-slate-950 flex flex-col justify-center rounded-md p-2 mx-20 my-3">
           <form className="flex flex-col p-2 mx-4 my-3">
@@ -61,8 +71,8 @@ const App = () => {
             type="button"
             className="bg-red-500 text-slate-950 rounded-md p-2 mx-20 my-3 shadow-md"
             onClick={() => {
-              setOpenPopup(false);
               getDomInfo();
+              setOpenPopup(false);
             }}
           >
             SAVE
@@ -76,11 +86,13 @@ const App = () => {
           </button>
         </div>
       )}
-
       <button
         className="bg-red-500 text-slate-950 rounded-md p-2 mx-4 my-3"
         type="button"
-        onClick={handleClear}
+        onClick={() => {
+          handleClear();
+          refreshPage();
+        }}
       >
         Clear List
       </button>

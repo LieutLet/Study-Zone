@@ -1,15 +1,9 @@
-//import browser from "webextension-polyfill";
 /// <reference types="chrome" />
-const webMap = new Map();
+import { webMap } from "./Map";
+//const webMap = new Map();
 
-// let networkFilters = {
-//     urls: ["https://www.youtube.com/*"]
-// }
-
-const blockUrls: string[] = [];
+//const blockUrls: string[] = [];
 const URL_PREFIX: string = "||";
-
-//webMap.set("Youtube", "https://www.youtube.com");
 
 // ********************************************************************************************** //
 //Purpose: reslove any issues with typescript when trying to catch and print an error message
@@ -25,45 +19,21 @@ function getErrorMessage(error: unknown): string {
 }
 
 // ********************************************************************************************** //
-//Purpose: add a new domain name to the list of blocked domains
-//Precondition: a valid url of type string
-//Postcondition: the list is updated
+//Purpose: update all rules from the webMap
+//Precondition: webMap is updated
+//Postcondition: rules are updated to match webMap
 // ********************************************************************************************** //
-const updateRules = async (newDomainName: string) => {
-  //Ensure validity of url.
-  try {
-    new URL(newDomainName);
-  } catch (error) {
-    const message = getErrorMessage(error);
-    console.error("invalid url: " + message);
-  }
-
-  // ********************************************************************************** //
-  // Add all currently blocked urls to a list of new ones
-  // then replace all current rules with the new rules.
-  // ********************************************************************************** //
-
-  newDomainName = URL_PREFIX + newDomainName;
-
-  const newRules: any[] = [
-    {
-      id: 1,
-      priority: 1,
-      action: { type: "block" },
-      condition: {
-        urlFilter: newDomainName,
-        resourceTypes: ["main_frame"],
-      },
+const updateRules = async () => {
+  const domains = Array.from(webMap.values());
+  const newRules: any[] = domains.map((domain, index) => ({
+    id: index + 1,
+    priority: 1,
+    action: { type: "block" },
+    condition: {
+      urlFilter: URL_PREFIX + domain,
+      resourceTypes: ["main_frame"],
     },
-  ];
-  blockUrls.forEach((domain, index) => {
-    newRules.push({
-      id: index + 2,
-      priority: 1,
-      action: { type: "block" },
-      condition: { urlFilter: domain, resourceTypes: ["main_frame"] },
-    });
-  });
+  }));
 
   try {
     chrome.declarativeNetRequest.getDynamicRules(async (previousRules) => {
@@ -73,14 +43,11 @@ const updateRules = async (newDomainName: string) => {
           removeRuleIds: previousRuleIds,
           addRules: newRules,
         });
+        console.log("Successfully updated rules");
       } catch (err) {
-        console.error(`line 70 updateDynamicRules ${err}`);
+        console.error(`updateDynamicRules ${err}`);
       }
     });
-    console.log("Successfully added rule");
-    /*let currentRules: any =
-      await browser.declarativeNetRequest.getDynamicRules();
-    console.log(currentRules);*/
   } catch (err) {
     console.error("getDynamicRules" + err);
   }
@@ -130,7 +97,9 @@ const handleAddWebsite = async (siteName: string, domainName: string) => {
     console.error(message);
   }
 
-  updateRules(domainName);
+  //Add new webcard to the dom
+
+  updateRules();
 };
 
 // ********************************************************************************************** //
@@ -149,18 +118,43 @@ const handleClear = () => {
 // Precondition: rule exists                                                                      //
 // Postcondition: rule is removed                                                                 //
 // ********************************************************************************************** //
-// const handleDelete = (siteName: string) => {
-//   if (webMap.delete(siteName)) {
-//   } else {
-//     throw new Error(`${siteName} does not exist`);
-//   }
-// };
+const handleDelete = (siteName: string) => {
+  if (webMap.has(siteName)) {
+    webMap.delete(siteName);
+    updateRules();
+  } else {
+    throw new Error(`${siteName} does not exist`);
+  }
+};
 
 // ********************************************************************************************** //
-// Purpose: all user to edit the rule                                                             //
+// Purpose: allow user to edit the rule                                                           //
 // Precondition: rules exist                                                                      //
 // Postcondition: rules is changed                                                                //
 // ********************************************************************************************** //
-// const handleEdit = () => {};
+const handleEdit = (
+  oldSiteName: string,
+  newSiteName: string,
+  newDomainName: string,
+) => {
+  if (!webMap.has(oldSiteName)) {
+    throw new Error(`${oldSiteName} does not exist`);
+  }
 
-export { handleAddWebsite, handleClear };
+  if (newSiteName.length <= 0) {
+    throw new Error("new site name too short");
+  }
+
+  webMap.delete(oldSiteName);
+  webMap.set(newSiteName, newDomainName);
+  updateRules();
+};
+
+const getRules = async () => {
+  let rules: any;
+  rules = await chrome.declarativeNetRequest.getDynamicRules();
+  console.log("Rules:" + rules);
+};
+getRules();
+
+export { handleAddWebsite, handleClear, handleDelete, handleEdit };
