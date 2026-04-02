@@ -4,11 +4,13 @@ import { handleDelete, handleEdit } from "../background";
 interface Props {
   cardName?: string; //Optional for now
   cardDomain?: string; //Optional for now
+  isActive: (cardName: string) => void;
 }
 
 const WebCard = ({
   cardName = "Web Card",
   cardDomain = "www.website.com/",
+  isActive,
 }: Props) => {
   // ********************************************************************************************** //
   // Purpose: get the information from the form                                                     //
@@ -39,7 +41,10 @@ const WebCard = ({
       <button
         type="button"
         className="basis-1/4"
-        onClick={() => handleDelete(name)}
+        onClick={() => {
+          handleDelete(name);
+          isActive(cardName);
+        }}
       >
         Delete
       </button>

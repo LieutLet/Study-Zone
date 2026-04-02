@@ -9,29 +9,38 @@ import WebCard from "../Components/WebCard";
 // Precondition: new information is entered into the form                                         //
 // Postcondition: the information is gotten                                                       //
 // ********************************************************************************************** //
-const getDomInfo = () => {
-  const inputName: any = document.getElementById("webName");
-  const inputSite: any = document.getElementById("domain");
-
-  handleAddWebsite(inputName.value, inputSite.value);
-};
+// The App component owns re-rendering state, so `isActive` can increment a local counter
+// and React will rebuild the card list when called.
 
 console.log("App.tsx has been reached");
 
 const App = () => {
+  const [, setRefreshCount] = useState(0);
+  const [openPopup, setOpenPopup] = useState(false);
+
+  const isActive = (key: string) => {
+    // Called by WebCard on delete/edit flow; this triggers rerender of the list.
+    console.log("isActive called for", key);
+    setRefreshCount((v) => v + 1);
+  };
+
+  const getDomInfo = () => {
+    const inputName: any = document.getElementById("webName");
+    const inputSite: any = document.getElementById("domain");
+
+    handleAddWebsite(inputName.value, inputSite.value);
+    setRefreshCount((v) => v + 1);
+  };
+
+  const cardComponent = Array.from(webMap.entries()).map(([key, value]) => (
+    <WebCard key={key} cardName={key} cardDomain={value} isActive={isActive} />
+  ));
+
+  console.log("App.tsx has been reached");
+
   const refreshPage = () => {
     window.location.reload();
   };
-
-  let cardComponent: any[] = [];
-
-  webMap.forEach((value, key) => {
-    cardComponent.push(<WebCard key={key} cardName={key} cardDomain={value} />);
-  });
-
-  console.log(cardComponent);
-
-  const [openPopup, setOpenPopup] = useState(false);
 
   return (
     <div className="flex flex-col text-center px-8 py-4">
