@@ -4,7 +4,7 @@ import { handleDelete, handleEdit } from "../background";
 interface Props {
   cardName?: string; //Optional for now
   cardDomain?: string; //Optional for now
-  isActive: (cardName: string) => void;
+  isActive: () => void;
 }
 
 const WebCard = ({
@@ -43,7 +43,7 @@ const WebCard = ({
         className="basis-1/4"
         onClick={() => {
           handleDelete(name);
-          isActive(cardName);
+          isActive();
         }}
       >
         Delete

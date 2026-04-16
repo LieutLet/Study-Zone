@@ -15,12 +15,13 @@ import WebCard from "../Components/WebCard";
 console.log("App.tsx has been reached");
 
 const App = () => {
+  console.log(`webmap: ${webMap}`);
   const [, setRefreshCount] = useState(0);
   const [openPopup, setOpenPopup] = useState(false);
 
-  const isActive = (key: string) => {
+  const isActive = () => {
     // Called by WebCard on delete/edit flow; this triggers rerender of the list.
-    console.log("isActive called for", key);
+    //console.log("isActive called for", key);
     setRefreshCount((v) => v + 1);
   };
 
@@ -37,10 +38,6 @@ const App = () => {
   ));
 
   console.log("App.tsx has been reached");
-
-  const refreshPage = () => {
-    window.location.reload();
-  };
 
   return (
     <div className="flex flex-col text-center px-8 py-4">
@@ -100,7 +97,7 @@ const App = () => {
         type="button"
         onClick={() => {
           handleClear();
-          refreshPage();
+          isActive();
         }}
       >
         Clear List
