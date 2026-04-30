@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { handleAddWebsite } from "../background";
 import { handleClear } from "../background";
-import { webMap } from "../Map";
+import { webMap, getStorage, setStorage } from "../Map";
 import WebCard from "../Components/WebCard";
 
 // ********************************************************************************************** //
@@ -12,32 +12,59 @@ import WebCard from "../Components/WebCard";
 // The App component owns re-rendering state, so `isActive` can increment a local counter
 // and React will rebuild the card list when called.
 
-console.log("App.tsx has been reached");
-
 const App = () => {
-  console.log(`webmap: ${webMap}`);
-  const [, setRefreshCount] = useState(0);
+  const asyncSetStorage = async () => {
+    await setStorage();
+  };
+
+  function logMapElements(value: any, key: any) {
+    console.log(`siteName[${key}] = ${value}`);
+  }
+  webMap.forEach(logMapElements);
+
+  const [RefreshCount, setRefreshCount] = useState(0);
   const [openPopup, setOpenPopup] = useState(false);
+
+  useEffect(() => {
+    const init = async () => {
+      if (webMap.size > 0) {
+        const data = await getStorage();
+        console.log("getStorage called in App.tsx: " + data);
+      }
+    };
+    init();
+  }, [RefreshCount]);
 
   const isActive = () => {
     // Called by WebCard on delete/edit flow; this triggers rerender of the list.
-    //console.log("isActive called for", key);
     setRefreshCount((v) => v + 1);
+    asyncSetStorage();
   };
 
   const getDomInfo = () => {
     const inputName: any = document.getElementById("webName");
     const inputSite: any = document.getElementById("domain");
 
-    handleAddWebsite(inputName.value, inputSite.value);
+    if (!inputName || !inputSite) {
+      console.error("Form elements not found");
+      return;
+    }
+
+    const name = (inputName as HTMLInputElement).value;
+    const site = (inputSite as HTMLInputElement).value;
+
+    if (!name || !site) {
+      console.error("Please fill in both fields");
+      return;
+    }
+
+    handleAddWebsite(name, site);
     setRefreshCount((v) => v + 1);
   };
 
   const cardComponent = Array.from(webMap.entries()).map(([key, value]) => (
     <WebCard key={key} cardName={key} cardDomain={value} isActive={isActive} />
   ));
-
-  console.log("App.tsx has been reached");
 
   return (
     <div className="flex flex-col text-center px-8 py-4">

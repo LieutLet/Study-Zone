@@ -43,7 +43,6 @@ const updateRules = async () => {
           removeRuleIds: previousRuleIds,
           addRules: newRules,
         });
-        console.log("Successfully updated rules");
       } catch (err) {
         console.error(`updateDynamicRules ${err}`);
       }
@@ -71,7 +70,6 @@ const clearRules = async () => {
         console.error(`line 97 updateDynamicRules ${err}`);
       }
     });
-    console.log("Successfully cleared rules");
   } catch (err) {
     console.error("getDynamicRules(clearRules)" + err);
   }
@@ -83,11 +81,11 @@ const clearRules = async () => {
 // Postcondition: updateRules is called and is passed the url                                     //
 // ********************************************************************************************** //
 const handleAddWebsite = async (siteName: string, domainName: string) => {
-  console.log("add button has been clicked");
-  console.log(`Site Name: ${siteName} Domain Name ${domainName}`);
-
-  if (siteName.length <= 0) {
-    throw new Error(siteName + "name too short");
+  if (!siteName || typeof siteName !== "string" || siteName.length <= 0) {
+    throw new Error("Site name is required and must be a non-empty string");
+  }
+  if (!domainName || typeof domainName !== "string" || domainName.length <= 0) {
+    throw new Error("Domain name is required and must be a non-empty string");
   }
 
   try {
@@ -150,11 +148,10 @@ const handleEdit = (
   updateRules();
 };
 
-const getRules = async () => {
+/* const getRules = async () => {
   let rules: any;
   rules = await chrome.declarativeNetRequest.getDynamicRules();
-  console.log("Rules:" + rules);
 };
-getRules();
+getRules(); */
 
 export { handleAddWebsite, handleClear, handleDelete, handleEdit };
