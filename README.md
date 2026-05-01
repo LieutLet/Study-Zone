@@ -12,7 +12,7 @@ This project is built with:
 
 ## What it does
 
-The Study Zone extension lets users add allowed websites to a focused study list. When the extension is enabled, only configured study-zone websites remain accessible.
+The Study Zone extension lets users add allowed websites to a black list. When the extension is enabled, unlisted websites remain accessible.
 
 ## Project structure
 
