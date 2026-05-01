@@ -17,7 +17,7 @@ function addWebsitePage(){
 }
 
 function editWebsite(){
-    windoow.location.href = "editPage.html";
+    window.location.href = "editPage.html";
 }
 
 function deleteWebsite(){

@@ -1,0 +1,19 @@
+{
+  "name": "StudyZone-Web-Extension",
+  "description": "A web extension that blocks websites to help you focus on your studies.",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
+    "storage"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "type": "module",
+    "service_worker": "background.js"
+  }
+}
