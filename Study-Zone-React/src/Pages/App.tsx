@@ -27,10 +27,8 @@ const App = () => {
 
   useEffect(() => {
     const init = async () => {
-      if (webMap.size > 0) {
-        const data = await getStorage();
-        console.log("getStorage called in App.tsx: " + data);
-      }
+      const data = await getStorage();
+      console.log("getStorage called in App.tsx: " + data);
     };
     init();
   }, [RefreshCount]);
